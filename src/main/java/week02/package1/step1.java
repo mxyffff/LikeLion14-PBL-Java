@@ -1,54 +1,45 @@
 package week02.package1;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class step1 {
-    public static void main(String args[]) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
-        System.out.println("아기사자 이름을 입력해주세요.");
-        String name = br.readLine();
-        System.out.println("전공을 입력해주세요.");
-        String major = br.readLine();
-        System.out.println("기수를 입력해주세요.");
-        String g = br.readLine();
+        // 1️⃣ 사용자 입력
+        System.out.println("🦁 아기사자 이름을 입력해주세요.");
+        String name = sc.nextLine();
 
-        System.out.println("입력값 검증을 진행합니다.");
+        System.out.println("🎓 전공을 입력해주세요.");
+        String major = sc.nextLine();
 
-        boolean isValidate = true;
+        System.out.println("📌 기수를 입력해주세요.");
+        int generation = sc.nextInt();
 
-        if (name.trim().isEmpty()) {
-            System.out.println("이름은 비어 있을 수 없습니다.");
-            isValidate = false;
-        }
-        if (major.trim().isEmpty()) {
-            System.out.println("전공은 비어 있을 수 없습니다.");
-            isValidate = false;
-        }
+        // Step 1: main에서 유효성 검증
 
-        int generation = 0;
-        if (g.trim().isEmpty()) {
-            System.out.println("기수는 비어 있을 수 없습니다.");
-            isValidate = false;
-        } else {
-            try {
-                generation = Integer.parseInt(g);
-                if (generation < 1) {
-                    System.out.println("기수는 1 이상이어야 합니다.");
-                    isValidate = false;
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("기수는 숫자여야 합니다.");
-                isValidate = false;
-            }
+        System.out.println("📌 입력값 검증을 진행합니다.");
+
+        if (name.isEmpty()) {
+            System.out.println("❌ 이름은 비어 있을 수 없습니다.");
+            return;
         }
 
-        if (isValidate) {
-            System.out.println("모든 입력값 검증을 통과하여 아기사자 객체 생성을 진행합니다.");
-            Lion lion = new Lion(name, major, generation);
-            System.out.println("아기사자 객체를 성공적으로 생성했습니다.");
-        } else return;
+        if (major.isEmpty()) {
+            System.out.println("❌ 전공은 비어 있을 수 없습니다.");
+            return;
+        }
+
+        if (generation <= 0) {
+            System.out.println("❌ 기수는 1 이상이어야 합니다.");
+            return;
+        }
+
+        // 모든 검증 통과 후 객체 생성
+        System.out.println("⏩️ 입력값 검증을 통과하여 아기사자 객체 생성을 진행합니다.");
+        Lion lion = new Lion(name, major, generation);
+        System.out.println("✅ 아기사자 객체를 성공적으로 생성하였습니다.");
+
+        lion.printInfo();
     }
 }
